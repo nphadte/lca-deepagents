@@ -140,3 +140,53 @@ brew install uv
 # Windows
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
+
+
+
+
+#These two values aren't something your account already has to look up. Your nphadte account #doesn't come with a GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET. GitHub creates them when you #register an OAuth app, so you register one once and then copy the values from it.
+
+Steps (signed in as nphadte)
+
+1. Open the OAuth Apps page
+
+Go to <https://github.com/settings/developers>
+Or click your profile picture (top right) → Settings → scroll to the bottom of the left sidebar → Developer settings → OAuth Apps.
+2. Check whether you already made one
+
+If you see an app listed (for example, one you made for this course earlier), click it and go to step 4.
+If the list is empty, continue to step 3.
+3. Register a new app
+
+Click New OAuth App (or Register a new application).
+Fill in:
+Application name: lca-deepagents-m1
+Homepage URL: <http://127.0.0.1:8765>
+Application description: leave blank
+Authorization callback URL: <http://127.0.0.1:8765/>
+Enable Device Flow: leave unchecked
+Click Register application.
+4. Copy the Client ID
+
+On the app's page, Client ID is shown near the top, something like Ov23li....
+This is your GITHUB_CLIENT_ID.
+5. Generate and copy the Client Secret
+
+On the same page, under Client secrets, click Generate a new client secret. GitHub may ask for your password or 2FA.
+Copy the long string straight away. GitHub shows it only once; if you lose it, generate another.
+This is your GITHUB_CLIENT_SECRET.
+6. Put both in .env
+
+In C:\GitHub\LANGCHAIN\lca-deepagents\python\.env, replace lines 24–25 with:
+
+GITHUB_CLIENT_ID=<paste Client ID>
+GITHUB_CLIENT_SECRET=<paste Client secret>
+Make sure there's no # at the start, no spaces around =, and no quotes.
+
+1. Run
+
+cd C:\GitHub\LANGCHAIN\lca-deepagents\python
+uv run python m1/gh_auth/github_agent.py
+When the browser opens, click Authorize nphadte to approve the app. The agent then runs and should report your username (nphadte) and list your repos.
+
+Don't paste the client secret into this chat or commit it to git; keep it only in .env.
